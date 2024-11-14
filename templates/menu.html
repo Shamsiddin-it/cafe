@@ -1,0 +1,69 @@
+{% extends "base.html" %}
+{% block title %}Menu{% endblock title %}
+{% block content %}
+<style>
+    /* General styles for the menu page */
+    .menu-container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 20px;
+        padding: 20px;
+    }
+
+    .card {
+        width: 18rem;
+        border: none;
+        border-radius: 10px;
+        overflow: hidden;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s, box-shadow 0.3s;
+        background-color: #fff;
+        text-decoration: none; /* Ensures text decoration is none */
+    }
+
+    .card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    }
+
+    .card img {
+        width: 100%;
+        height: auto;
+        border-bottom: 1px solid #dee2e6;
+    }
+
+    .card-body {
+        padding: 15px;
+        text-align: center;
+    }
+
+    .card-title {
+        font-size: 1.5em;
+        color: #007bff;
+        margin-bottom: 10px;
+    }
+
+    .card-text {
+        font-size: 1em;
+        color: #343a40;
+    }
+
+    .card a {
+        text-decoration: none; /* Ensures links within cards have no underline */
+        color: inherit; /* Inherits the color of the parent element */
+    }
+</style>
+
+<div class="menu-container">
+    {% for category in categorys %}
+    <a href="{% url "category_detail" category.id %}" class="card">
+        <img src="{{category.image.url}}" class="card-img-top" alt="{{category.name}}">
+        <div class="card-body">
+            <h5 class="card-title">{{category.name}}</h5>
+            <p class="card-text">{{category.description}}</p>
+        </div>
+    </a>
+    {% endfor %}
+</div>
+{% endblock content %}

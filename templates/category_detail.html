@@ -1,0 +1,99 @@
+{% extends "base.html" %}
+{% block title %}Detail{% endblock title %}
+{% block content %}
+<style>
+    /* General styles for the detail page */
+    .detail-container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 20px;
+        padding: 20px;
+    }
+
+    .card {
+        width: 18rem;
+        border: none;
+        border-radius: 10px;
+        overflow: hidden;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s, box-shadow 0.3s;
+        background-color: #fff;
+    }
+
+    .card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    }
+
+    .card img {
+        width: 100%;
+        height: auto;
+        border-bottom: 1px solid #dee2e6;
+    }
+
+    .card-body {
+        padding: 15px;
+        text-align: center;
+    }
+
+    .card-title {
+        font-size: 1.5em;
+        color: #007bff;
+        margin-bottom: 10px;
+    }
+
+    .card-text {
+        font-size: 1em;
+        color: #343a40;
+    }
+
+    .list-group-item {
+        font-size: 1em;
+        color: #555555;
+        border: none;
+        border-top: 1px solid #dee2e6;
+    }
+
+    .card-link {
+        color: #007bff;
+        text-decoration: none;
+        margin-right: 10px;
+        transition: color 0.3s, transform 0.3s;
+    }
+
+    .card-link:hover {
+        color: #0056b3;
+        transform: scale(1.1);
+    }
+</style>
+
+<div class="detail-container">
+    <div class="card">
+        <img src="{{category.image.url}}" class="card-img-top" alt="{{category.name}}">
+        <div class="card-body">
+            <h5 class="card-title">{{category.name}}</h5>
+            <p class="card-text">{{category.description}}</p>
+        </div>
+    </div>
+
+    {% for dish in dish_category %}
+    <div class="card">
+        <img src="{{dish.image.url}}" class="card-img-top" alt="{{dish.name}}">
+        <div class="card-body">
+            <h5 class="card-title">{{dish.name}}</h5>
+            <p class="card-text">{{dish.description}}</p>
+        </div>
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item">Category: {{dish.category}}</li>
+            <li class="list-group-item">Weight: {{dish.weight}}</li>
+            <li class="list-group-item">Price: {{dish.price}}</li>
+        </ul>
+        <div class="card-body">
+            <a href="{% url "dish_update" dish.id %}" class="card-link">Update</a>
+            <a href="{% url "dish_delete" dish.id %}" class="card-link">Delete</a>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock content %}
